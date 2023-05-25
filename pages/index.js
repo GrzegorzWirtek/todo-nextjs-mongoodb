@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
+import { connectMongoDB } from '@/libs/mongodb/Connect';
+import Task from '@/libs/mongodb/TaskModel';
 
-export default function Home() {
+export default function Home({ tasks }) {
 	return (
 		<>
 			<Head>
@@ -15,7 +17,26 @@ export default function Home() {
 			</Head>
 			<main className={styles.main}>
 				<h1>This is home</h1>
+				{tasks.map(({ _id, task, description, date }) => (
+					<div key={_id}>
+						<h2>{task}</h2>
+						<p>{description}</p>
+						<p>{date}</p>
+					</div>
+				))}
 			</main>
 		</>
 	);
+}
+
+export async function getStaticProps() {
+	await connectMongoDB();
+	const data = await Task.find();
+	const tasks = JSON.parse(JSON.stringify(data));
+
+	return {
+		props: {
+			tasks,
+		},
+	};
 }
