@@ -1,5 +1,5 @@
 import { connectMongoDB } from '@/libs/mongodb/Connect';
-import Task from '@/libs/mongodb/TaskModel';
+import TaskModel from '@/libs/mongodb/TaskModel';
 
 export default async function handler(req, res) {
 	const { method, body } = req;
@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 			{
 				try {
 					await connectMongoDB();
-					const tasks = await Task.find();
+					const tasks = await TaskModel.find();
 					res.status(200).send(tasks);
 				} catch (err) {
 					console.log(err);
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
 				try {
 					await connectMongoDB();
-					Task.create({ task }).then((data) => {
+					TaskModel.create({ task }).then((data) => {
 						res.status(201).send(data);
 					});
 				} catch (err) {

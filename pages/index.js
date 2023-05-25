@@ -1,9 +1,16 @@
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
 import { connectMongoDB } from '@/libs/mongodb/Connect';
-import Task from '@/libs/mongodb/TaskModel';
+import TaskModel from '@/libs/mongodb/TaskModel';
+import Task from '@/components/Task';
+import { useEffect, useState } from 'react';
 
-export default function Home({ tasks }) {
+export default function Home({ tasksData }) {
+	const [tasks, setTasks] = useState(null);
+	useEffect(() => {
+		setTasks(tasksData);
+	}, [tasksData]);
+
 	return (
 		<>
 			<Head>
@@ -17,13 +24,7 @@ export default function Home({ tasks }) {
 			</Head>
 			<main className={styles.main}>
 				<h1>This is home</h1>
-				{tasks.map(({ _id, task, description, date }) => (
-					<div key={_id}>
-						<h2>{task}</h2>
-						<p>{description}</p>
-						<p>{date}</p>
-					</div>
-				))}
+				{tasks && tasks.map((task) => <Task key={task._id} data={task} />)}
 			</main>
 		</>
 	);
@@ -31,12 +32,12 @@ export default function Home({ tasks }) {
 
 export async function getStaticProps() {
 	await connectMongoDB();
-	const data = await Task.find();
-	const tasks = JSON.parse(JSON.stringify(data));
+	const data = await TaskModel.find();
+	const tasksData = JSON.parse(JSON.stringify(data));
 
 	return {
 		props: {
-			tasks,
+			tasksData,
 		},
 	};
 }

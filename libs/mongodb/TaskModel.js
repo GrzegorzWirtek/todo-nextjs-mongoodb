@@ -15,6 +15,6 @@ const taskSchema = new Schema({
 	},
 });
 
-const Task = models.Task || model('Task', taskSchema);
+const TaskModel = models.Task || model('Task', taskSchema);
 
-export default Task;
+export default TaskModel;
