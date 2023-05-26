@@ -1,12 +1,23 @@
 import { connectMongoDB } from '@/libs/mongodb/Connect';
 import TaskModel from '@/libs/mongodb/TaskModel';
+import axios from 'axios';
 
-export default function TaskId({ data: { task, description, date } }) {
+export default function TaskId({ data: { _id, task, description, date } }) {
+	const handleDelete = async () => {
+		axios
+			.delete(`/api/tasks/${_id}`)
+			.then(() => {
+				console.log('delted sucesfully');
+			})
+			.catch((err) => console.log(err));
+	};
+
 	return (
 		<div>
 			<h2>{task}</h2>
 			<p>{description}</p>
 			<p>{date}</p>
+			<button onClick={handleDelete}>Delete</button>
 		</div>
 	);
 }

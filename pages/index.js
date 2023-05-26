@@ -7,9 +7,10 @@ import { useEffect, useState } from 'react';
 
 export default function Home({ tasksData }) {
 	const [tasks, setTasks] = useState(null);
+
 	useEffect(() => {
 		setTasks(tasksData);
-	}, [tasksData]);
+	}, [tasksData, setTasks]);
 
 	return (
 		<>
