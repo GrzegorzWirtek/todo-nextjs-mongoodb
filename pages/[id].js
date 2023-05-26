@@ -1,23 +1,17 @@
 import { connectMongoDB } from '@/libs/mongodb/Connect';
 import TaskModel from '@/libs/mongodb/TaskModel';
-import axios from 'axios';
+import deleteTask from '@/utils/deleteTask';
 
-export default function TaskId({ data: { _id, task, description, date } }) {
-	const handleDelete = async () => {
-		axios
-			.delete(`/api/tasks/${_id}`)
-			.then(() => {
-				console.log('delted sucesfully');
-			})
-			.catch((err) => console.log(err));
-	};
-
+export default function TaskId({
+	handleDelete,
+	data: { _id, task, description, date },
+}) {
 	return (
 		<div>
 			<h2>{task}</h2>
 			<p>{description}</p>
 			<p>{date}</p>
-			<button onClick={handleDelete}>Delete</button>
+			<button onClick={() => handleDelete(_id)}>Delete</button>
 		</div>
 	);
 }
@@ -36,7 +30,7 @@ export async function getStaticPaths() {
 
 	return {
 		paths,
-		fallback: false,
+		fallback: true,
 	};
 }
 

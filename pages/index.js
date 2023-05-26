@@ -4,13 +4,19 @@ import { connectMongoDB } from '@/libs/mongodb/Connect';
 import TaskModel from '@/libs/mongodb/TaskModel';
 import Task from '@/components/Task';
 import { useEffect, useState } from 'react';
+import deleteTask from '@/utils/deleteTask';
+import getTasks from '@/utils/getTasks';
 
 export default function Home({ tasksData }) {
-	const [tasks, setTasks] = useState(null);
+	const [tasks, setTasks] = useState(tasksData);
 
-	useEffect(() => {
-		setTasks(tasksData);
-	}, [tasksData, setTasks]);
+	const handleDelete = async (_id) => {
+		const res = await deleteTask(_id);
+		if (res) {
+			const tasks = await getTasks();
+			setTasks(tasks);
+		}
+	};
 
 	return (
 		<>
@@ -25,7 +31,10 @@ export default function Home({ tasksData }) {
 			</Head>
 			<main className={styles.main}>
 				<h1>This is home</h1>
-				{tasks && tasks.map((task) => <Task key={task._id} data={task} />)}
+				{tasks &&
+					tasks.map((task) => (
+						<Task key={task._id} data={task} handleDelete={handleDelete} />
+					))}
 			</main>
 		</>
 	);

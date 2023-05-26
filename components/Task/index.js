@@ -1,22 +1,13 @@
 import Link from 'next/link';
-import axios from 'axios';
+// import deleteTask from '@/utils/deleteTask';
 
-const Task = ({ data: { _id, task, date } }) => {
-	const handleDelete = async () => {
-		axios
-			.delete(`/api/tasks/${_id}`)
-			.then(() => {
-				console.log('delted sucesfully');
-			})
-			.catch((err) => console.log(err));
-	};
-
+const Task = ({ handleDelete, data: { _id, task, date } }) => {
 	return (
 		<div className='task-min'>
 			<h2>{task}</h2>
 			<p>{date}</p>
 			<Link href={`/${_id}`}>Open</Link>
-			<button onClick={handleDelete}>Delete</button>
+			<button onClick={() => handleDelete(_id)}>Delete</button>
 		</div>
 	);
 };
