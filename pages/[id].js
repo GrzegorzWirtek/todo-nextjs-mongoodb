@@ -9,6 +9,7 @@ export default function TaskId({ data: { _id, task, description, date } }) {
 		const res = await deleteTask(_id);
 
 		if (!res) return;
+		router.reload(window.location.pathname);
 		router.push('/');
 	};
 
@@ -36,7 +37,7 @@ export async function getStaticPaths() {
 
 	return {
 		paths,
-		fallback: true,
+		fallback: false,
 	};
 }
 

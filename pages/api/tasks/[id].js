@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 				try {
 					await connectMongoDB();
 					const tasks = await TaskModel.deleteOne({ _id });
-					res.revalidate('/');
+					await res.revalidate('/');
 					res.send(tasks);
 				} catch (err) {
 					console.log(err);
