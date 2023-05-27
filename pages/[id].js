@@ -1,11 +1,17 @@
 import { connectMongoDB } from '@/libs/mongodb/Connect';
 import TaskModel from '@/libs/mongodb/TaskModel';
 import deleteTask from '@/utils/deleteTask';
+import { useRouter } from 'next/router';
 
-export default function TaskId({
-	handleDelete,
-	data: { _id, task, description, date },
-}) {
+export default function TaskId({ data: { _id, task, description, date } }) {
+	const router = useRouter();
+	const handleDelete = async (_id) => {
+		const res = await deleteTask(_id);
+
+		if (!res) return;
+		router.push('/');
+	};
+
 	return (
 		<div>
 			<h2>{task}</h2>

@@ -12,10 +12,9 @@ export default function Home({ tasksData }) {
 
 	const handleDelete = async (_id) => {
 		const res = await deleteTask(_id);
-		if (res) {
-			const tasks = await getTasks();
-			setTasks(tasks);
-		}
+		if (!res) return;
+		const tasks = await getTasks();
+		setTasks(tasks);
 	};
 
 	return (
