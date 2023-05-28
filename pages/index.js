@@ -3,7 +3,7 @@ import styles from '@/styles/Home.module.css';
 import { connectMongoDB } from '@/libs/mongodb/Connect';
 import TaskModel from '@/libs/mongodb/TaskModel';
 import Task from '@/components/Task';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import deleteTask from '@/utils/deleteTask';
 import getTasks from '@/utils/getTasks';
 

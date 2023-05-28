@@ -1,25 +1,52 @@
 import { connectMongoDB } from '@/libs/mongodb/Connect';
 import TaskModel from '@/libs/mongodb/TaskModel';
 import deleteTask from '@/utils/deleteTask';
-import { useRouter } from 'next/router';
+import EditForm from '@/components/EditForm';
+import { useState } from 'react';
+import updateTask from '@/utils/updateTask';
+import getTasks from '@/utils/getTasks';
 
-export default function TaskId({ data: { _id, task, description, date } }) {
-	const router = useRouter();
+export default function TaskId({ data }) {
+	const [taskData, setTaskData] = useState(data);
+	const { _id, task, description, date } = taskData;
+	const [formVisible, setFormVisible] = useState(false);
+
 	const handleDelete = async (_id) => {
 		const res = await deleteTask(_id);
-
 		if (!res) return;
 		router.reload(window.location.pathname);
 		router.push('/');
 	};
 
+	const handleUpdate = () => {
+		setFormVisible(true);
+	};
+
+	const handleUpdateTask = async (updatedData) => {
+		await updateTask({ _id, data: updatedData });
+		const tasks = await getTasks();
+		const updatedTask = tasks.find((task) => task._id === _id);
+		setTaskData(updatedTask);
+		setFormVisible(false);
+	};
+
 	return (
-		<div>
-			<h2>{task}</h2>
-			<p>{description}</p>
-			<p>{date}</p>
-			<button onClick={() => handleDelete(_id)}>Delete</button>
-		</div>
+		<>
+			{formVisible ? (
+				<EditForm
+					handleUpdateTask={handleUpdateTask}
+					taskData={{ task, description }}
+				/>
+			) : (
+				<div>
+					<h2>{task}</h2>
+					<p>{description}</p>
+					<p>{date}</p>
+					<button onClick={() => handleUpdate(_id)}>Edit</button>
+					<button onClick={() => handleDelete(_id)}>Delete</button>
+				</div>
+			)}
+		</>
 	);
 }
 
