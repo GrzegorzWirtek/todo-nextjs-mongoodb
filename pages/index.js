@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import styles from '@/styles/Home.module.css';
 import { connectMongoDB } from '@/libs/mongodb/Connect';
 import TaskModel from '@/libs/mongodb/TaskModel';
 import Task from '@/components/Task';
@@ -8,20 +7,24 @@ import deleteTask from '@/utils/deleteTask';
 import getTasks from '@/utils/getTasks';
 import addTask from '@/utils/addTask';
 import AddForm from '@/components/AddForm';
-import ConfirmPopup from '@/components/ConfirmPopup/index.js';
+import ConfirmPopup from '@/components/ConfirmPopup.js';
+import Spinner from '@/components/Spinner';
 
 export default function Home({ tasksData }) {
 	const [tasks, setTasks] = useState(tasksData);
 	const [confirmPopup, setConfirmPopup] = useState(false);
 	const [deleteTaskId, setDeleteTaskId] = useState(null);
+	const [spinnerVisible, setSpinnerVisible] = useState(false);
 
 	const deleteOneTask = async () => {
+		setSpinnerVisible(true);
 		const res = await deleteTask(deleteTaskId);
 		if (!res) return;
 		const tasks = await getTasks();
 		setTasks(tasks);
 		setConfirmPopup(false);
 		setDeleteTaskId(null);
+		setSpinnerVisible(false);
 	};
 
 	const cancelDelete = () => {
@@ -35,10 +38,12 @@ export default function Home({ tasksData }) {
 	};
 
 	const addNewTask = async (taskData) => {
+		setSpinnerVisible(true);
 		const res = await addTask(taskData);
 		if (!res) return;
 		const tasks = await getTasks();
 		setTasks(tasks);
+		setSpinnerVisible(false);
 	};
 
 	return (
@@ -52,7 +57,8 @@ export default function Home({ tasksData }) {
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<main className={styles.main}>
+			<main>
+				{spinnerVisible && <Spinner />}
 				{confirmPopup && (
 					<ConfirmPopup
 						title='Are you sure you want to delete this task?'

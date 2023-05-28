@@ -2,7 +2,8 @@ import { connectMongoDB } from '@/libs/mongodb/Connect';
 import TaskModel from '@/libs/mongodb/TaskModel';
 import deleteTask from '@/utils/deleteTask';
 import EditForm from '@/components/EditForm';
-import ConfirmPopup from '@/components/ConfirmPopup/index.js';
+import ConfirmPopup from '@/components/ConfirmPopup.js';
+import Spinner from '@/components/Spinner';
 import { useState } from 'react';
 import updateTask from '@/utils/updateTask';
 import getTasks from '@/utils/getTasks';
@@ -13,6 +14,7 @@ export default function TaskId({ data }) {
 	const [confirmPopup, setConfirmPopup] = useState(false);
 	const { _id, task, description, date } = taskData;
 	const [formVisible, setFormVisible] = useState(false);
+	const [spinnerVisible, setSpinnerVisible] = useState(false);
 	const router = useRouter();
 
 	const cancelDelete = () => {
@@ -20,10 +22,12 @@ export default function TaskId({ data }) {
 	};
 
 	const deleteThisTask = async () => {
+		setSpinnerVisible(true);
 		const res = await deleteTask(_id);
 		if (!res) return;
 		router.push('/');
 		setConfirmPopup(false);
+		setSpinnerVisible(false);
 	};
 
 	const handleDelete = () => {
@@ -35,11 +39,13 @@ export default function TaskId({ data }) {
 	};
 
 	const handleUpdateTask = async (updatedData) => {
+		setSpinnerVisible(true);
 		await updateTask({ _id, data: updatedData });
 		const tasks = await getTasks();
 		const updatedTask = tasks.find((task) => task._id === _id);
 		setTaskData(updatedTask);
 		setFormVisible(false);
+		setSpinnerVisible(false);
 	};
 
 	const handleBackHome = () => {
@@ -48,6 +54,7 @@ export default function TaskId({ data }) {
 
 	return (
 		<>
+			{spinnerVisible && <Spinner />}
 			{confirmPopup && (
 				<ConfirmPopup
 					title='Are you sure you want to delete this task?'
