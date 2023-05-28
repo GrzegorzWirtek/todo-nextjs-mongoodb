@@ -31,6 +31,10 @@ export default function TaskId({ data }) {
 		setFormVisible(false);
 	};
 
+	const handleBackHome = () => {
+		router.push('/');
+	};
+
 	return (
 		<>
 			{formVisible ? (
@@ -45,6 +49,7 @@ export default function TaskId({ data }) {
 					<p>{date}</p>
 					<button onClick={() => handleUpdate(_id)}>Edit</button>
 					<button onClick={() => handleDelete(_id)}>Delete</button>
+					<button onClick={handleBackHome}>Back Home</button>
 				</div>
 			)}
 		</>

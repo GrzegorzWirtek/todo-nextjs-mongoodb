@@ -9,7 +9,7 @@ const updateTask = async ({ _id, data }) => {
 			_id,
 			task,
 			description,
-			date: getDate(),
+			date: `${getDate()} (Edited)`,
 		});
 		return res;
 	} catch (err) {
