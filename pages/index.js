@@ -6,12 +6,21 @@ import Task from '@/components/Task';
 import { useState } from 'react';
 import deleteTask from '@/utils/deleteTask';
 import getTasks from '@/utils/getTasks';
+import addTask from '@/utils/addTask';
+import AddForm from '@/components/AddForm';
 
 export default function Home({ tasksData }) {
 	const [tasks, setTasks] = useState(tasksData);
 
 	const handleDelete = async (_id) => {
 		const res = await deleteTask(_id);
+		if (!res) return;
+		const tasks = await getTasks();
+		setTasks(tasks);
+	};
+
+	const addNewTask = async (taskData) => {
+		const res = await addTask(taskData);
 		if (!res) return;
 		const tasks = await getTasks();
 		setTasks(tasks);
@@ -30,6 +39,7 @@ export default function Home({ tasksData }) {
 			</Head>
 			<main className={styles.main}>
 				<h1>This is home</h1>
+				<AddForm addNewTask={addNewTask} />
 				{tasks &&
 					tasks.map((task) => (
 						<Task key={task._id} data={task} handleDelete={handleDelete} />

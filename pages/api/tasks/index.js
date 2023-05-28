@@ -19,11 +19,11 @@ export default async function handler(req, res) {
 			break;
 		case 'POST':
 			{
-				const { task } = body;
+				const task = body;
 
 				try {
 					await connectMongoDB();
-					TaskModel.create({ task }).then((data) => {
+					TaskModel.create(task).then((data) => {
 						res.status(201).send(data);
 					});
 				} catch (err) {

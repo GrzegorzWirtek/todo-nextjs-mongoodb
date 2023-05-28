@@ -16,7 +16,6 @@ export default function TaskId({ data }) {
 	const handleDelete = async (_id) => {
 		const res = await deleteTask(_id);
 		if (!res) return;
-		// router.reload(window.location.pathname);
 		router.push('/');
 	};
 
@@ -66,31 +65,3 @@ export async function getServerSideProps(context) {
 		},
 	};
 }
-
-// export async function getStaticPaths() {
-// 	await connectMongoDB();
-// 	const data = await TaskModel.find();
-
-// 	const paths = data.map((task) => {
-// 		return {
-// 			params: {
-// 				id: task._id.toString(),
-// 			},
-// 		};
-// 	});
-
-// 	return {
-// 		paths,
-// 		fallback: false,
-// 	};
-// }
-
-// export async function getStaticProps(context) {
-// 	const { params } = context;
-
-// 	await connectMongoDB();
-// 	const data = await TaskModel.find({ _id: params.id });
-// 	const taskData = JSON.parse(JSON.stringify(data))[0];
-
-// 	return { props: { data: taskData } };
-// }
