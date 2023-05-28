@@ -8,15 +8,30 @@ import deleteTask from '@/utils/deleteTask';
 import getTasks from '@/utils/getTasks';
 import addTask from '@/utils/addTask';
 import AddForm from '@/components/AddForm';
+import ConfirmPopup from '@/components/ConfirmPopup/index.js';
 
 export default function Home({ tasksData }) {
 	const [tasks, setTasks] = useState(tasksData);
+	const [confirmPopup, setConfirmPopup] = useState(false);
+	const [deleteTaskId, setDeleteTaskId] = useState(null);
 
-	const handleDelete = async (_id) => {
-		const res = await deleteTask(_id);
+	const deleteOneTask = async () => {
+		const res = await deleteTask(deleteTaskId);
 		if (!res) return;
 		const tasks = await getTasks();
 		setTasks(tasks);
+		setConfirmPopup(false);
+		setDeleteTaskId(null);
+	};
+
+	const cancelDelete = () => {
+		setConfirmPopup(false);
+		setDeleteTaskId(null);
+	};
+
+	const handleDelete = (_id) => {
+		setConfirmPopup(true);
+		setDeleteTaskId(_id);
 	};
 
 	const addNewTask = async (taskData) => {
@@ -38,6 +53,15 @@ export default function Home({ tasksData }) {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<main className={styles.main}>
+				{confirmPopup && (
+					<ConfirmPopup
+						title='Are you sure you want to delete this task?'
+						option1={'Cancel'}
+						option2={'Delete'}
+						handleOption1={cancelDelete}
+						handleOption2={deleteOneTask}
+					/>
+				)}
 				<h1>This is home</h1>
 				<AddForm addNewTask={addNewTask} />
 				{tasks &&
