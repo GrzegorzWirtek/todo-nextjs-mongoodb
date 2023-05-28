@@ -40,7 +40,7 @@ export default function TaskId({ data }) {
 			{formVisible ? (
 				<EditForm
 					handleUpdateTask={handleUpdateTask}
-					taskData={{ task, description }}
+					taskData={{ task, description, date }}
 				/>
 			) : (
 				<div>

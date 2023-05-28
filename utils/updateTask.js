@@ -3,13 +3,13 @@ import getDate from './getDate';
 
 const updateTask = async ({ _id, data }) => {
 	getDate();
-	const { task, description } = data;
+	const { task, description, date } = data;
 	try {
 		const res = await axios.put(`/api/tasks/${_id}`, {
 			_id,
 			task,
 			description,
-			date: `${getDate()} (Edited)`,
+			date,
 		});
 		return res;
 	} catch (err) {
