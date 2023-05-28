@@ -26,7 +26,6 @@ export default async function handler(req, res) {
 				try {
 					await connectMongoDB();
 					const tasks = await TaskModel.deleteOne({ _id });
-					await res.revalidate('/');
 					res.send(tasks);
 				} catch (err) {
 					console.log(err);
@@ -43,7 +42,6 @@ export default async function handler(req, res) {
 						{ _id: _id },
 						{ $set: { task, description, date } },
 					);
-					await res.revalidate('/');
 					res.send(updatedTask);
 				} catch (err) {
 					console.log(err);

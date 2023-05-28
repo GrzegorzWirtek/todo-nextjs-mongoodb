@@ -39,7 +39,7 @@ export default function Home({ tasksData }) {
 	);
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 	await connectMongoDB();
 	const data = await TaskModel.find();
 	const tasksData = JSON.parse(JSON.stringify(data));

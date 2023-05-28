@@ -5,16 +5,18 @@ import EditForm from '@/components/EditForm';
 import { useState } from 'react';
 import updateTask from '@/utils/updateTask';
 import getTasks from '@/utils/getTasks';
+import { useRouter } from 'next/router';
 
 export default function TaskId({ data }) {
 	const [taskData, setTaskData] = useState(data);
 	const { _id, task, description, date } = taskData;
 	const [formVisible, setFormVisible] = useState(false);
+	const router = useRouter();
 
 	const handleDelete = async (_id) => {
 		const res = await deleteTask(_id);
 		if (!res) return;
-		router.reload(window.location.pathname);
+		// router.reload(window.location.pathname);
 		router.push('/');
 	};
 
@@ -50,30 +52,45 @@ export default function TaskId({ data }) {
 	);
 }
 
-export async function getStaticPaths() {
+export async function getServerSideProps(context) {
+	const {
+		params: { id },
+	} = context;
 	await connectMongoDB();
-	const data = await TaskModel.find();
-
-	const paths = data.map((task) => {
-		return {
-			params: {
-				id: task._id.toString(),
-			},
-		};
-	});
+	const data = await TaskModel.find({ _id: id });
+	const taskData = JSON.parse(JSON.stringify(data))[0];
 
 	return {
-		paths,
-		fallback: false,
+		props: {
+			data: taskData,
+		},
 	};
 }
 
-export async function getStaticProps(context) {
-	const { params } = context;
+// export async function getStaticPaths() {
+// 	await connectMongoDB();
+// 	const data = await TaskModel.find();
 
-	await connectMongoDB();
-	const data = await TaskModel.find({ _id: params.id });
-	const taskData = JSON.parse(JSON.stringify(data))[0];
+// 	const paths = data.map((task) => {
+// 		return {
+// 			params: {
+// 				id: task._id.toString(),
+// 			},
+// 		};
+// 	});
 
-	return { props: { data: taskData } };
-}
+// 	return {
+// 		paths,
+// 		fallback: false,
+// 	};
+// }
+
+// export async function getStaticProps(context) {
+// 	const { params } = context;
+
+// 	await connectMongoDB();
+// 	const data = await TaskModel.find({ _id: params.id });
+// 	const taskData = JSON.parse(JSON.stringify(data))[0];
+
+// 	return { props: { data: taskData } };
+// }
