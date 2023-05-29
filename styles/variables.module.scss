@@ -1,0 +1,51 @@
+$border-color: rgb(171, 171, 171);
+
+$task-title-font-size: 1.4rem;
+$task-description-font-size: 1rem;
+
+$details-buttons-margin-top: 20px;
+$details-btn-margin: 10px;
+$details-img-size: 25px;
+$details-btnedit-margin: 5px 10px;
+$details-btnedit-width: 200px;
+
+$spinner-color: rgb(88, 88, 139);
+$spinner-bcg-color: rgba(83, 83, 106, 0.135);
+
+$main-bcg-color: rgb(226, 226, 240);
+
+$delete-width: 25px;
+$delete-height: 25px;
+$delete-hover-bcg-color: rgb(220, 196, 196);
+
+$task-max-width: 500px;
+$task-padding: 10px;
+$task-border-radius: 5px;
+$task-box-shadow: 4px 4px 10px -3px rgba(0, 0, 0, 0.37);
+$task-box-shadow-hover: 7px 7px 13px -3px rgba(0, 0, 0, 0.32);
+$task-margin-top: 10px;
+$task-bcg-color: white;
+$task-transition-time: 0.2s;
+
+$task-details-max-width: 700px;
+$task-details-margin-bottom: 20px;
+$task-details-padding: 15px;
+
+$input-magrin-bottom: 8px;
+$add-form-height: 290px;
+$add-form-padding-top: 20px;
+$add-form-padding-vertical: 10px;
+$add-button-color: #129f12;
+$add-button-filter-color-hover: invert(21%) sepia(100%) saturate(958%)
+	hue-rotate(87deg) brightness(100%) contrast(93%);
+$add-button-filter-color: invert(36%) sepia(73%) saturate(1893%)
+	hue-rotate(93deg) brightness(96%) contrast(86%);
+
+$header-box-shadow: 0px 1px 18px -1px rgba(76, 76, 76, 0.34);
+
+@mixin date {
+	margin-top: 15px;
+	padding-top: 5px;
+	border-top: 1px solid $border-color;
+	font-size: 0.8rem;
+}

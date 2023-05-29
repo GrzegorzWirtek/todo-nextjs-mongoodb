@@ -1,11 +1,14 @@
+import style from '@/styles/Home.module.scss';
 import Head from 'next/head';
+import Image from 'next/image';
+import addImg from '@/public/add.svg';
+import { useState } from 'react';
 import { connectMongoDB } from '@/libs/mongodb/Connect';
 import TaskModel from '@/libs/mongodb/TaskModel';
-import Task from '@/components/Task';
-import { useState } from 'react';
 import deleteTask from '@/utils/deleteTask';
 import getTasks from '@/utils/getTasks';
 import addTask from '@/utils/addTask';
+import Task from '@/components/Task';
 import AddForm from '@/components/AddForm';
 import ConfirmPopup from '@/components/ConfirmPopup.js';
 import Spinner from '@/components/Spinner';
@@ -14,6 +17,7 @@ export default function Home({ tasksData }) {
 	const [tasks, setTasks] = useState(tasksData);
 	const [confirmPopup, setConfirmPopup] = useState(false);
 	const [deleteTaskId, setDeleteTaskId] = useState(null);
+	const [addClassActive, setAddClassActive] = useState(false);
 	const [spinnerVisible, setSpinnerVisible] = useState(false);
 
 	const deleteOneTask = async () => {
@@ -46,6 +50,10 @@ export default function Home({ tasksData }) {
 		setSpinnerVisible(false);
 	};
 
+	const handleToogleAddClass = () => {
+		setAddClassActive((prev) => !prev);
+	};
+
 	return (
 		<>
 			<Head>
@@ -57,7 +65,7 @@ export default function Home({ tasksData }) {
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<main>
+			<main className={style.main}>
 				{spinnerVisible && <Spinner />}
 				{confirmPopup && (
 					<ConfirmPopup
@@ -68,11 +76,30 @@ export default function Home({ tasksData }) {
 						handleOption2={deleteOneTask}
 					/>
 				)}
-				<h1>This is home</h1>
-				<AddForm addNewTask={addNewTask} />
+				<div className={style.main__add}>
+					<Image
+						className={style.main__img}
+						src={addImg}
+						alt='add'
+						width='auto'
+						height='auto'
+						onClick={handleToogleAddClass}
+						priority={true}
+					/>
+					<AddForm
+						addNewTask={addNewTask}
+						addClassActive={addClassActive}
+						setAddClassActive={setAddClassActive}
+					/>
+				</div>
 				{tasks &&
 					tasks.map((task) => (
-						<Task key={task._id} data={task} handleDelete={handleDelete} />
+						<Task
+							key={task._id}
+							data={task}
+							handleDelete={handleDelete}
+							setSpinnerVisible={setSpinnerVisible}
+						/>
 					))}
 			</main>
 		</>

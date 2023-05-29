@@ -1,0 +1,37 @@
+@import './variables.module.scss';
+
+.add {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	height: 0;
+	padding: $add-form-padding-top $add-form-padding-vertical 0
+		$add-form-padding-vertical;
+	transform: translateY($add-form-padding-top);
+	background-color: $add-button-color;
+	border-radius: $task-border-radius;
+	transition: 0.2s;
+
+	&__active {
+		height: $add-form-height;
+	}
+
+	&__input,
+	&__textarea {
+		width: 100%;
+		outline: none;
+		margin-bottom: $input-magrin-bottom;
+		border: 1px solid $border-color;
+		border-radius: $task-border-radius;
+	}
+
+	&__textarea {
+		resize: none;
+	}
+
+	&__button {
+		margin: 8px 10px;
+	}
+}

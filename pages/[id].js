@@ -1,13 +1,18 @@
+import style from '@/styles/Task.module.scss';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+import undo from '@/public/undo.svg';
+import edit from '@/public/edit.svg';
+import deleteImg from '@/public/delete.svg';
 import { connectMongoDB } from '@/libs/mongodb/Connect';
 import TaskModel from '@/libs/mongodb/TaskModel';
 import deleteTask from '@/utils/deleteTask';
+import updateTask from '@/utils/updateTask';
+import getTasks from '@/utils/getTasks';
 import EditForm from '@/components/EditForm';
 import ConfirmPopup from '@/components/ConfirmPopup.js';
 import Spinner from '@/components/Spinner';
-import { useState } from 'react';
-import updateTask from '@/utils/updateTask';
-import getTasks from '@/utils/getTasks';
-import { useRouter } from 'next/router';
 
 export default function TaskId({ data }) {
 	const [taskData, setTaskData] = useState(data);
@@ -26,8 +31,6 @@ export default function TaskId({ data }) {
 		const res = await deleteTask(_id);
 		if (!res) return;
 		router.push('/');
-		setConfirmPopup(false);
-		setSpinnerVisible(false);
 	};
 
 	const handleDelete = () => {
@@ -49,11 +52,12 @@ export default function TaskId({ data }) {
 	};
 
 	const handleBackHome = () => {
+		setSpinnerVisible(true);
 		router.push('/');
 	};
 
 	return (
-		<>
+		<div className={style.details}>
 			{spinnerVisible && <Spinner />}
 			{confirmPopup && (
 				<ConfirmPopup
@@ -67,19 +71,48 @@ export default function TaskId({ data }) {
 			{formVisible ? (
 				<EditForm
 					handleUpdateTask={handleUpdateTask}
+					setFormVisible={setFormVisible}
 					taskData={{ task, description, date }}
 				/>
 			) : (
-				<div>
-					<h2>{task}</h2>
-					<p>{description}</p>
-					<p>{date}</p>
-					<button onClick={() => handleUpdate(_id)}>Edit</button>
-					<button onClick={handleDelete}>Delete</button>
-					<button onClick={handleBackHome}>Back Home</button>
+				<div className={style.details__task}>
+					<h2 className={style.details__title}>{task}</h2>
+					<p className={style.details__description}>{description}</p>
+					<p className={style.details__date}>{date}</p>
+					<div className={style.details__buttons}>
+						<button
+							className={style.details__btn}
+							onClick={() => handleUpdate(_id)}>
+							<Image
+								className={style.details__img}
+								src={edit}
+								alt='edit'
+								priority={true}
+								loading='eager'
+							/>
+						</button>
+						<button className={style.details__btn} onClick={handleDelete}>
+							<Image
+								className={style.details__img}
+								src={deleteImg}
+								alt='delete'
+								priority={true}
+								loading='eager'
+							/>
+						</button>
+						<button className={style.details__btn} onClick={handleBackHome}>
+							<Image
+								className={style.details__img}
+								src={undo}
+								alt='back'
+								priority={true}
+								loading='eager'
+							/>
+						</button>
+					</div>
 				</div>
 			)}
-		</>
+		</div>
 	);
 }
 

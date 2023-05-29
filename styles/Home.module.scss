@@ -1,0 +1,29 @@
+@import './variables.module.scss';
+
+.main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100vh;
+	padding: 10px;
+
+	&__add {
+		position: relative;
+		width: 100%;
+		max-width: $task-max-width;
+		margin-top: $add-form-padding-top;
+		text-align: right;
+		overflow: hidden;
+		border-radius: $task-border-radius;
+	}
+
+	&__img {
+		filter: $add-button-filter-color;
+		cursor: pointer;
+		transition: 0.2s;
+
+		&:hover {
+			filter: $add-button-filter-color-hover;
+		}
+	}
+}

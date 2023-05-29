@@ -1,0 +1,112 @@
+@import './variables.module.scss';
+
+.task {
+	display: grid;
+	grid-template-columns: auto 70px;
+	grid-template-rows: 1fr 1fr;
+	justify-content: space-between;
+	width: 100%;
+	max-width: $task-max-width;
+	padding: $task-padding;
+	border-radius: $task-border-radius;
+	box-shadow: $task-box-shadow;
+	margin-top: $task-margin-top;
+	background-color: $task-bcg-color;
+	transition: $task-transition-time;
+	cursor: pointer;
+
+	&:hover {
+		box-shadow: $task-box-shadow-hover;
+		transform: scale(1.02);
+	}
+
+	&__delete {
+		grid-area: 1/2/3/3;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: none;
+
+		&:hover {
+			background-color: $delete-hover-bcg-color;
+		}
+	}
+
+	&__img {
+		width: $delete-width;
+		height: $delete-height;
+	}
+
+	&__title {
+		grid-area: 1/1/2/2;
+		font-size: $task-title-font-size;
+	}
+
+	&__date {
+		grid-area: 2/1/3/2;
+		align-self: flex-end;
+		@include date;
+	}
+}
+
+.details {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	&__task {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		max-width: $task-details-max-width;
+		padding: $task-details-padding;
+		border-radius: $task-border-radius;
+		box-shadow: $task-box-shadow;
+		margin-top: $task-margin-top;
+		background-color: $task-bcg-color;
+		transition: $task-transition-time;
+	}
+
+	&__title {
+		font-size: $task-title-font-size;
+		margin-bottom: $task-details-margin-bottom;
+		font-weight: bold;
+		border: none;
+		outline: none;
+		padding: 0;
+	}
+
+	&__description {
+		padding: 0;
+		line-height: 1.3;
+		font-size: $task-description-font-size;
+		border: none;
+		outline: none;
+		resize: none;
+	}
+
+	&__date {
+		align-self: flex-start;
+		@include date;
+	}
+
+	&__buttons {
+		text-align: center;
+		margin-top: $details-buttons-margin-top;
+	}
+
+	&__btn {
+		margin: $details-btn-margin;
+	}
+
+	&__btnedit {
+		margin: $details-btnedit-margin;
+		width: $details-btnedit-width;
+	}
+
+	&__img {
+		width: $details-img-size;
+		height: $details-img-size;
+	}
+}
