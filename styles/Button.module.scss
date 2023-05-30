@@ -2,16 +2,25 @@
 .btn__submit {
 	background-color: $btn-submit-color;
 	color: white;
+	&:hover {
+		background-color: lighten($btn-submit-color, 6%);
+	}
 }
 
 .btn__cancel {
 	background-color: $btn-cancel-color;
 	color: white;
+	&:hover {
+		background-color: lighten($btn-cancel-color, 6%);
+	}
 }
 
 .btn__delete {
 	background-color: $btn-delete-color;
 	color: white;
+	&:hover {
+		background-color: lighten($btn-delete-color, 10%);
+	}
 }
 
 .btn__edit {

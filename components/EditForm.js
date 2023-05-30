@@ -66,17 +66,17 @@ export default function EditForm({
 			/>
 			<div className={style.details__buttons}>
 				<Button
-					type='submit'
-					text={'Save changes'}
-					nameOfClass={'btn__submit'}
-					nameOfSubclass={'btn__edit'}
-				/>
-				<Button
 					type='button'
 					text={'Cancel'}
 					nameOfClass={'btn__cancel'}
 					nameOfSubclass={'btn__edit'}
 					fn={handleCancel}
+				/>
+				<Button
+					type='submit'
+					text={'Save changes'}
+					nameOfClass={'btn__submit'}
+					nameOfSubclass={'btn__edit'}
 				/>
 			</div>
 		</form>
