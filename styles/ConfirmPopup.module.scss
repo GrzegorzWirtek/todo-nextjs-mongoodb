@@ -1,11 +1,5 @@
 @import './variables.module.scss';
 
-$popup-padding: 40px 30px;
-$popup-margin: 10px;
-$popup-font-size: 1.2rem;
-$popup-title-margin-bottom: 15px;
-$popup-btn-margin-horizontal: 10px;
-
 .confirm {
 	position: fixed;
 	top: 0;
@@ -15,7 +9,7 @@ $popup-btn-margin-horizontal: 10px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	backdrop-filter: blur(3px);
+	backdrop-filter: blur(4px);
 	background-color: $spinner-bcg-color;
 	z-index: 1;
 

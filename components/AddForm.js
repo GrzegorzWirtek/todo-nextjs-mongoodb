@@ -1,5 +1,6 @@
 import style from '@/styles/AddForm.module.scss';
 import { useState } from 'react';
+import Button from './Button';
 
 export default function AddForm({
 	addNewTask,
@@ -50,15 +51,13 @@ export default function AddForm({
 				rows={6}
 			/>
 			<div>
-				<button
-					className={style.add__button}
+				<Button
 					type='button'
-					onClick={handleCancel}>
-					Cancel
-				</button>
-				<button className={style.add__button} type='submit'>
-					Submit
-				</button>
+					text={'Cancel'}
+					fn={handleCancel}
+					nameOfClass={'btn__cancel'}
+				/>
+				<Button type='submit' text={'Submit'} nameOfClass={'btn__submit'} />
 			</div>
 		</form>
 	);

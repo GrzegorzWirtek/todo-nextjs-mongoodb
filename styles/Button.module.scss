@@ -1,0 +1,20 @@
+@import './variables.module';
+.btn__submit {
+	background-color: $btn-submit-color;
+	color: white;
+}
+
+.btn__cancel {
+	background-color: $btn-cancel-color;
+	color: white;
+}
+
+.btn__delete {
+	background-color: $btn-delete-color;
+	color: white;
+}
+
+.btn__edit {
+	margin: $btn-edit-margin;
+	width: $btn-edit-width;
+}

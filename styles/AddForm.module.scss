@@ -10,7 +10,7 @@
 	padding: $add-form-padding-top $add-form-padding-vertical 0
 		$add-form-padding-vertical;
 	transform: translateY($add-form-padding-top);
-	background-color: $add-button-color;
+	background-color: $add-bcg-color;
 	border-radius: $task-border-radius;
 	transition: 0.2s;
 
@@ -29,9 +29,5 @@
 
 	&__textarea {
 		resize: none;
-	}
-
-	&__button {
-		margin: 8px 10px;
 	}
 }

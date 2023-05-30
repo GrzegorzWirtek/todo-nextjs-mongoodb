@@ -1,10 +1,9 @@
 @import './variables.module.scss';
 
-$header-padding: 20px 0;
-
 .header {
 	padding: $header-padding;
 	text-align: center;
 	box-shadow: $header-box-shadow;
 	margin-bottom: 20px;
+	background-color: $header-bcg-color;
 }

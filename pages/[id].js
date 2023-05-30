@@ -84,7 +84,7 @@ export default function TaskId({ data }) {
 							className={style.details__btn}
 							onClick={() => handleUpdate(_id)}>
 							<Image
-								className={style.details__img}
+								className={`${style.details__img} ${style.details__img__edit}`}
 								src={edit}
 								alt='edit'
 								priority={true}
@@ -93,7 +93,7 @@ export default function TaskId({ data }) {
 						</button>
 						<button className={style.details__btn} onClick={handleDelete}>
 							<Image
-								className={style.details__img}
+								className={`${style.details__img} ${style.details__img__delete}`}
 								src={deleteImg}
 								alt='delete'
 								priority={true}
@@ -102,7 +102,7 @@ export default function TaskId({ data }) {
 						</button>
 						<button className={style.details__btn} onClick={handleBackHome}>
 							<Image
-								className={style.details__img}
+								className={`${style.details__img} ${style.details__img__back}`}
 								src={undo}
 								alt='back'
 								priority={true}

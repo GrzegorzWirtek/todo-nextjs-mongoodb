@@ -22,19 +22,22 @@
 
 	&__delete {
 		grid-area: 1/2/3/3;
+		height: $task-delete-btn-height;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		border: none;
+		background-color: $svg-bcg-color;
 
 		&:hover {
-			background-color: $delete-hover-bcg-color;
+			background-color: $svg-hover-bcg-color;
 		}
 	}
 
 	&__img {
 		width: $delete-width;
 		height: $delete-height;
+		filter: $delete-btn-filter-color;
 	}
 
 	&__title {
@@ -97,16 +100,31 @@
 	}
 
 	&__btn {
-		margin: $details-btn-margin;
-	}
+		background-color: $svg-bcg-color;
+		transition: 0.2s;
 
-	&__btnedit {
-		margin: $details-btnedit-margin;
-		width: $details-btnedit-width;
+		&:hover {
+			background-color: $svg-hover-bcg-color;
+		}
 	}
 
 	&__img {
 		width: $details-img-size;
 		height: $details-img-size;
+	}
+
+	&__img__edit {
+		filter: invert(43%) sepia(56%) saturate(4719%) hue-rotate(4deg)
+			brightness(95%) contrast(95%);
+	}
+
+	&__img__delete {
+		filter: invert(15%) sepia(21%) saturate(7499%) hue-rotate(351deg)
+			brightness(99%) contrast(90%);
+	}
+
+	&__img__back {
+		filter: invert(34%) sepia(90%) saturate(1199%) hue-rotate(160deg)
+			brightness(95%) contrast(95%);
 	}
 }

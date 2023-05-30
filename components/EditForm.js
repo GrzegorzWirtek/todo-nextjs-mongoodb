@@ -1,4 +1,5 @@
 import style from '@/styles/Task.module.scss';
+import Button from './Button';
 import { useState, useRef, useEffect } from 'react';
 import getDate from '@/utils/getDate';
 
@@ -64,15 +65,19 @@ export default function EditForm({
 				onFocus={setTextareaSelect}
 			/>
 			<div className={style.details__buttons}>
-				<button className={style.details__btnedit} type='submit'>
-					Save changes
-				</button>
-				<button
-					className={style.details__btnedit}
+				<Button
+					type='submit'
+					text={'Save changes'}
+					nameOfClass={'btn__submit'}
+					nameOfSubclass={'btn__edit'}
+				/>
+				<Button
 					type='button'
-					onClick={handleCancel}>
-					Cancel
-				</button>
+					text={'Cancel'}
+					nameOfClass={'btn__cancel'}
+					nameOfSubclass={'btn__edit'}
+					fn={handleCancel}
+				/>
 			</div>
 		</form>
 	);
