@@ -1,4 +1,4 @@
-To Do Next.js App
+# To Do Next.js App
 
 ![todo-next](https://github.com/GrzegorzWirtek/todo-nextjs-mongoodb/assets/83970189/e1e1fd99-1cec-44d2-9df4-a520487ba9e0)
 
@@ -23,15 +23,15 @@ Project is created with:
 
 Page is deployed to Vercel.com: **[To Do Next.js App](https://todo-nextjs-mongoodb.vercel.app/)**
 
-# Project launch:
+### Project launch:
 
-development:
+Development:
 
 ```
 $ npm run dev
 ```
 
-droduction:
+Production:
 
 ```
 $ npm run build
